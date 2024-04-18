@@ -34,12 +34,14 @@ void setup() {
 
   Serial.begin(9600);
   
+  // initialize SD card
   if (!SD.begin(chipSelect)) {
     Serial.println("Card failed, or not present");
     return;
   }
   Serial.println("Card initialized.");
-  
+
+  // setup interrrupts
   attachInterrupt(digitalPinToInterrupt(inputPinx), trigger1, RISING);
   attachInterrupt(digitalPinToInterrupt(inputPiny), trigger2, RISING);
   attachInterrupt(digitalPinToInterrupt(inputPina), trigger3, FALLING);
@@ -89,6 +91,7 @@ void loop() {
   lcd.print(VolumeY);
 }
 
+// trigger functions
 void trigger1() {
   writeFlag = true;
   triggeredBy = 'x';
